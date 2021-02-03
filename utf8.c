@@ -26,6 +26,8 @@
 
 #include "tmux.h"
 
+#include "wcwidth9.h"
+
 static const wchar_t utf8_force_wide[] = {
 	0x0261D,
 	0x026F9,
@@ -409,21 +411,8 @@ utf8_width(struct utf8_data *ud, int *width)
 		*width = 2;
 		return (UTF8_DONE);
 	}
-#ifdef HAVE_UTF8PROC
-	*width = utf8proc_wcwidth(wc);
-	log_debug("utf8proc_wcwidth(%05X) returned %d", (u_int)wc, *width);
-#else
-	*width = wcwidth(wc);
-	log_debug("wcwidth(%05X) returned %d", (u_int)wc, *width);
-	if (*width < 0) {
-		/*
-		 * C1 control characters are nonprintable, so they are always
-		 * zero width.
-		 */
-		*width = (wc >= 0x80 && wc <= 0x9f) ? 0 : 1;
-	}
-#endif
-	if (*width >= 0 && *width <= 0xff)
+	*width = wcwidth9(wc);
+	if (*width >= 0)
 		return (UTF8_DONE);
 	return (UTF8_ERROR);
 }
