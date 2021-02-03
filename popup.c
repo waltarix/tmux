@@ -143,6 +143,8 @@ popup_draw_cb(struct client *c, __unused struct screen_redraw_ctx *ctx0)
 		    &grid_default_cell, NULL);
 	}
 	c->overlay_check = popup_check_cb;
+
+    screen_free(&s);
 }
 
 static void

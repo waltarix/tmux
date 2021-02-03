@@ -182,6 +182,7 @@ dist_tmux_SOURCES = \
 	tty-term.c \
 	tty.c \
 	utf8.c \
+	wcwidth9.h \
 	window-buffer.c \
 	window-client.c \
 	window-clock.c \

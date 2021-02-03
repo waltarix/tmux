@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*-custom'
+      - '*.*-custom-r*'
+      - '*.*-*-custom'
+      - '*.*-*-custom-r*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install -y --no-install-recommends libevent-dev
+
+    - name: Build
+      run: ./autogen.sh && ./configure && make dist-xz
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: '*.tar.xz'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -26,6 +26,8 @@
 
 #include "tmux.h"
 
+#include "wcwidth9.h"
+
 struct utf8_item {
 	RB_ENTRY(utf8_item)	index_entry;
 	u_int			index;
@@ -229,14 +231,10 @@ utf8_width(struct utf8_data *ud, int *width)
 	case 0:
 		return (UTF8_ERROR);
 	}
-#ifdef HAVE_UTF8PROC
-	*width = utf8proc_wcwidth(wc);
-#else
-	*width = wcwidth(wc);
-#endif
+	*width = wcwidth9(wc);
 	if (*width >= 0 && *width <= 0xff)
 		return (UTF8_DONE);
-	log_debug("UTF-8 %.*s, wcwidth() %d", (int)ud->size, ud->data, *width);
+	log_debug("UTF-8 %.*s, wcwidth9() %d", (int)ud->size, ud->data, *width);
 
 #ifndef __OpenBSD__
 	/*
