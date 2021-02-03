@@ -66,6 +66,8 @@ struct tmuxpeer;
 struct tmuxproc;
 struct winlink;
 
+#define log_debug(msg, ...)
+
 /* Client-server protocol version. */
 #define PROTOCOL_VERSION 8
 
