@@ -69,6 +69,8 @@ struct tmuxpeer;
 struct tmuxproc;
 struct winlink;
 
+#define log_debug(msg, ...)
+
 /* Default configuration files and socket paths. */
 #ifndef TMUX_CONF
 #define TMUX_CONF "/etc/tmux.conf:~/.tmux.conf"
