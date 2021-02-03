@@ -259,6 +259,8 @@ popup_draw_cb(struct client *c, void *data, struct screen_redraw_ctx *rctx)
 	}
 	c->overlay_check = popup_check_cb;
 	c->overlay_data = pd;
+
+    screen_free(&s);
 }
 
 static void
