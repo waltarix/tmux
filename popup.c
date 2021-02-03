@@ -259,6 +259,8 @@ popup_draw_cb(struct client *c, void *data, struct screen_redraw_ctx *rctx)
 	}
 	c->overlay_check = popup_check_cb;
 	c->overlay_data = pd;
+
+    screen_free(&s);
 }
 
 static void
@@ -689,7 +691,7 @@ popup_display(int flags, enum box_lines lines, struct cmdq_item *item, u_int px,
 	}
 	pd->border_cell.attr = 0;
 
-	screen_init(&pd->s, sx - 2, sy - 2, 0);
+	screen_init(&pd->s, jx, jy, 0);
 	colour_palette_init(&pd->palette);
 	colour_palette_from_option(&pd->palette, global_w_options);
 
