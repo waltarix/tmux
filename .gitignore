@@ -22,3 +22,5 @@ fuzz/*-fuzzer
 tags
 tmux
 tmux.1.*
+
+/wcwidth9.h
