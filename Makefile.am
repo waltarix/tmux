@@ -257,6 +257,13 @@ fuzz_style_fuzzer_LDFLAGS = $(FUZZING_LIBS)
 fuzz_style_fuzzer_LDADD = $(LDADD) $(tmux_OBJECTS)
 endif
 
+BUILT_SOURCES = wcwidth9.h
+
+wcwidth9.h:
+	curl -sL \
+		"https://github.com/waltarix/localedata/releases/download/17.0.0/wcwidth9.h" \
+		> $@
+
 # Install tmux.1 in the right format.
 install-exec-hook:
 	if test x@MANFORMAT@ = xmdoc; then \
